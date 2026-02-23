@@ -6,6 +6,16 @@ Gelişmiş AI mantığı ve şık, kullanıcı dostu arayüzü sayesinde tek bir
 
 ---
 
+## 📸 Ekran Görüntüleri
+
+<div align="center">
+  <img src="assets/dashboard.png" alt="BerrAI Ana Ekran" width="800" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px;" />
+  <br/>
+  <img src="assets/voice.png" alt="BerrAI Sesli Komut (Duraklatma/Silme/Gönderme)" width="800" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+</div>
+
+---
+
 ## 🎯 BerrAI Neler Yapabilir? (Temel Özellikler)
 
 BerrAI, Google hizmetleriyle doğrudan konuşmanızı sağlar. İşte yapabildiği bazı sihirli şeyler:
