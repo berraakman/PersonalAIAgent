@@ -111,5 +111,5 @@ PersonalAIAgent/
 
 ---
 
-📝 **Mimar ve Geliştirici:** *Developed by Berra Akman*  
+📝 **Geliştirici:** *Berra Akman*  
 📜 **Lisans:** MIT License (Açık kaynak ve kişisel kullanıma açık)
