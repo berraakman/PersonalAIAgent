@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Google ekosistemi ile entegre kişisel yapay zeka asistanı. Drive, Docs, Sheets, Calendar ve Gmail yönetimi.">
+    <title> BerrAI – Kişisel AI Asistan</title>
+    <link rel="stylesheet" href="/static/styles.css?v=3">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+
+<body>
+    <!-- Background particles -->
+    <div class="bg-particles" id="bg-particles"></div>
+
+    <div class="app-container">
+        <!-- ─── Sidebar ────────────────────────────────────── -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-icon">🤖</div>
+                    <div class="brand-text">
+                        <h1>BerrAI</h1>
+                        <span>Kişisel AI Asistan</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auth section -->
+            <div class="sidebar-auth">
+                <div class="auth-status" id="auth-status">
+                    <div class="status-dot" id="status-dot"></div>
+                    <span class="status-text" id="status-text">Bağlantı kontrol ediliyor…</span>
+                </div>
+                <button class="btn-google" id="btn-auth" onclick="handleAuth()">
+                    <div class="google-dots">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <span id="btn-auth-text">Google ile Bağlan</span>
+                </button>
+            </div>
+
+            <!-- Capabilities -->
+            <div class="sidebar-capabilities">
+                <div class="capabilities-title">Yetenekler</div>
+
+                <div class="capability-item">
+                    <div class="capability-icon drive">📁</div>
+                    <div class="capability-info">
+                        <h3>Google Drive</h3>
+                        <p>Dosya listeleme, arama, indirme</p>
+                    </div>
+                </div>
+
+                <div class="capability-item">
+                    <div class="capability-icon docs">📄</div>
+                    <div class="capability-info">
+                        <h3>Google Docs</h3>
+                        <p>Belge oluşturma, okuma, düzenleme</p>
+                    </div>
+                </div>
+
+                <div class="capability-item">
+                    <div class="capability-icon sheets">📊</div>
+                    <div class="capability-info">
+                        <h3>Google Sheets</h3>
+                        <p>Tablo oluşturma, veri yazma/okuma</p>
+                    </div>
+                </div>
+
+                <div class="capability-item">
+                    <div class="capability-icon slides">🎞️</div>
+                    <div class="capability-info">
+                        <h3>Google Slides</h3>
+                        <p>Sunum oluşturma, slayt ekleme</p>
+                    </div>
+                </div>
+
+                <div class="capability-item">
+                    <div class="capability-icon calendar">📅</div>
+                    <div class="capability-info">
+                        <h3>Google Calendar</h3>
+                        <p>Etkinlik ekleme, listeleme, düzenleme</p>
+                    </div>
+                </div>
+
+                <div class="capability-item">
+                    <div class="capability-icon gmail">✉️</div>
+                    <div class="capability-info">
+                        <h3>Gmail</h3>
+                        <p>E-posta gönderme, taslak oluşturma</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="developer-credit">Developed by Berra Akman</div>
+            </div>
+        </aside>
+
+        <!-- ─── Main Content ────────────────────────────────── -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <button class="btn-icon btn-menu-toggle" id="btn-menu" onclick="toggleSidebar()">☰</button>
+                    <div class="dot"></div>
+                    <span>BerrAI ile Sohbet</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="btn-clear" onclick="clearChat()" title="Sohbeti Temizle">🗑️</button>
+                </div>
+            </header>
+
+            <!-- Chat Area -->
+            <div class="chat-area" id="chat-area">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="welcome-logo">🤖</div>
+                    <h2>Merhaba, Ben BerrAI!</h2>
+                    <p>Google hesabınızla tam entegre çalışan kişisel yapay zeka asistanınızım. Size nasıl yardımcı
+                        olabilirim?</p>
+
+                    <div class="quick-actions">
+                        <div class="quick-action"
+                            onclick="sendQuickAction('Google Drive\'daki son dosyalarımı listele')">
+                            <div class="quick-action-icon">📁</div>
+                            <h4>Dosyalarımı Göster</h4>
+                            <p>Drive'daki son dosyalarınızı listeler</p>
+                        </div>
+                        <div class="quick-action"
+                            onclick="sendQuickAction('Bugün ve yarın için takvim etkinliklerimi göster')">
+                            <div class="quick-action-icon">📅</div>
+                            <h4>Bugünkü Etkinlikler</h4>
+                            <p>Takviminizdeki günün programı</p>
+                        </div>
+                        <div class="quick-action" onclick="sendQuickAction('Gelen kutumdaki son 5 e-postayı göster')">
+                            <div class="quick-action-icon">✉️</div>
+                            <h4>Son E-postalar</h4>
+                            <p>Gmail gelen kutunuzdaki mesajlar</p>
+                        </div>
+                        <div class="quick-action" onclick="sendQuickAction('\" Toplantı Notları\" başlıklı yeni bir
+                            Google Docs belgesi oluştur')">
+                            <div class="quick-action-icon">📄</div>
+                            <h4>Belge Oluştur</h4>
+                            <p>Hızlıca yeni bir Docs belgesi açar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat messages container -->
+                <div class="chat-messages" id="chat-messages" style="display:none;"></div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <div class="input-container">
+                        <textarea id="message-input" placeholder="BerrAI'a bir şey söyleyin…" rows="1"
+                            onkeydown="handleKeyDown(event)" oninput="autoResize(this); toggleSendBtn()"></textarea>
+                        <button class="btn-voice" id="btn-voice" onclick="toggleVoice()" title="Sesli Komut">🎤</button>
+                        <button class="btn-send" id="btn-send" onclick="sendMessage()" title="Gönder">➤</button>
+                    </div>
+                    <div class="input-hint">Enter ile gönder · Shift+Enter ile yeni satır · 🎤 ile sesli komut</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Voice Overlay -->
+    <div class="voice-overlay" id="voice-overlay">
+        <div class="voice-modal">
+            <div class="voice-visualizer">🎤</div>
+            <h3>Dinliyorum…</h3>
+            <p>Komutunuzu söyleyin</p>
+            <div class="voice-transcript" id="voice-transcript">…</div>
+            <div class="voice-actions">
+                <button class="btn-stop-voice" id="btn-voice-control" onclick="toggleVoiceRecording()">Duraklat</button>
+                <button class="btn-stop-voice" onclick="cancelVoice()">Sil</button>
+                <button class="btn-stop-voice" onclick="sendVoiceMessage()">Gönder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/static/app.js?v=2"></script>
+</body>
+
+</html>
